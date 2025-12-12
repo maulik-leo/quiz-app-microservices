@@ -1,5 +1,7 @@
 package com.leotechindia.question_service.controller;
 
+import com.leotechindia.question_service.model.dto.AnswerOnly;
+import com.leotechindia.question_service.model.dto.QuestionOnly;
 import com.leotechindia.question_service.model.entity.Question;
 import com.leotechindia.question_service.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,21 @@ public class QuestionController {
         return questionService.addQuestion(newQuestion);
     }
 
-    // 5. Generate Questions for Quiz
+    // 5. Get QuestionIds Generated For Quiz
+    @GetMapping("generate")
+    public ResponseEntity<List<Integer>> getQuestionIdsGeneratedForQuiz(@RequestParam("cat") String category, @RequestParam("noQ") int numOfQuestion) {
+        return questionService.getQuestionIdsForQuiz(category, numOfQuestion);
+    }
+
     // 6. Get Questions from QuestionIds
-    // 7. Calculate Score
+    @PostMapping("getQuestions")
+    public ResponseEntity<List<QuestionOnly>> getQuestionsFromIds(@RequestBody List<Integer> questionIds) {
+        return questionService.getQuestionsFromIds(questionIds);
+    }
+
+    // 7. Calculate Score from Answers
+    @PostMapping("getScore")
+    public ResponseEntity<String> calculateScoreFromAnswers(@RequestBody List<AnswerOnly> answers) {
+        return questionService.calculateScoreFromAnswers(answers);
+    }
 }
