@@ -2,6 +2,7 @@ package com.leotechindia.quiz_service.service;
 
 
 import com.leotechindia.quiz_service.dao.QuizDao;
+import com.leotechindia.quiz_service.feign.QuizFeignInterface;
 import com.leotechindia.quiz_service.model.dto.AnswerOnly;
 import com.leotechindia.quiz_service.model.dto.QuestionOnly;
 import com.leotechindia.quiz_service.model.entity.Quiz;
@@ -19,10 +20,14 @@ public class QuizService {
     @Autowired
     QuizDao quizDao;
 
+    @Autowired
+    QuizFeignInterface quizFeignInterface;
+
     public ResponseEntity<String> createQuiz(String category, int numOfQuestion, String quizTitle) {
         Quiz quiz = new Quiz();
         quiz.setQuizTitle(quizTitle);
-        //quiz.setQuestions(???); // call url : /question/generate (RestTemplate) Eureka client, openFeign needed
+        // calling url : /question/generate using Eureka client and openFeign Client Interfaces
+        quiz.setQuestionIds(quizFeignInterface.getQuestionIdsGeneratedForQuiz(category, numOfQuestion).getBody());
         quizDao.save(quiz);
         return new ResponseEntity<>("Created quiz : " + quiz.getQuizTitle() + " (ID : " + quiz.getId() + ")", HttpStatus.CREATED);
     }
