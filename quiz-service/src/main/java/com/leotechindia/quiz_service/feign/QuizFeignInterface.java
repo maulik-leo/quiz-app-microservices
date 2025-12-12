@@ -15,14 +15,14 @@ import java.util.List;
 public interface QuizFeignInterface {
     // All 3 from question-service
     // 5. Get QuestionIds Generated For Quiz
-    @GetMapping("generate")
+    @GetMapping("question/generate")
     public ResponseEntity<List<Integer>> getQuestionIdsGeneratedForQuiz(@RequestParam("cat") String category, @RequestParam("noQ") int numOfQuestion);
 
     // 6. Get Questions from QuestionIds
-    @PostMapping("getQuestions")
+    @PostMapping("question/getQuestions")
     public ResponseEntity<List<QuestionOnly>> getQuestionsFromIds(@RequestBody List<Integer> questionIds);
 
     // 7. Calculate Score from Answers
-    @PostMapping("getScore")
+    @PostMapping("question/getScore")
     public ResponseEntity<String> calculateScoreFromAnswers(@RequestBody List<AnswerOnly> answers);
 }
