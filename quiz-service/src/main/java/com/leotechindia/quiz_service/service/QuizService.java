@@ -33,26 +33,11 @@ public class QuizService {
     }
 
     public ResponseEntity<List<QuestionOnly>> getQuiz(int quizId) {
-        List<QuestionOnly> questionsForUser = new ArrayList<>();
-        /*List<Question> questionsFromDB = quizDao.findById(quizId).get().getQuestions();
-        for (Question q : questionsFromDB) {
-            questionsForUser.add(new QuestionOnly(q.getId(), q.getQuestionTitle(), q.getOption1(), q.getOption2(), q.getOption3(), q.getOption4()));
-        }*/
-        return new ResponseEntity<>(questionsForUser, HttpStatus.OK);
+        List<Integer> questionsIds = quizDao.findById(quizId).get().getQuestionIds();
+        return new ResponseEntity<>(quizFeignInterface.getQuestionsFromIds(questionsIds).getBody(), HttpStatus.OK);
     }
 
     public ResponseEntity<String> calculateQuizScore(int quizId, List<AnswerOnly> answers) {
-        /*List<Question> questionsOfQuiz = quizDao.findById(quizId).get().getQuestions();
-
-        // This is weak logic, as no guarantee of both list are in same order or not, suggested to implement comparison logic using map
-        int index = 0, correct = 0;
-        for (AnswerOnly ans : answers) {
-            if (questionsOfQuiz.get(index).getId() == ans.getQuestionId() && questionsOfQuiz.get(index).getRightAnswer().equals(ans.getAnswerByUser())) {
-                correct++;
-            }
-            index++;
-        }*/
-        //return new ResponseEntity<>("Score : " + correct + " / " + questionsOfQuiz.size(), HttpStatus.OK);
-        return new ResponseEntity<>("Score : ", HttpStatus.OK);
+        return quizFeignInterface.calculateScoreFromAnswers(answers);
     }
 }

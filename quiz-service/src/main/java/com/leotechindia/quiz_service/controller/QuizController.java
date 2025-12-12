@@ -26,8 +26,7 @@ public class QuizController {
     // 2. Get all questions of specific QUIZ using QUIZ-ID
     @GetMapping("get/{quiz_id}")
     public ResponseEntity<List<QuestionOnly>> getQuiz(@PathVariable("quiz_id") int quizId) {
-        //return quizService.getQuiz(quizId);
-        return null;
+        return quizService.getQuiz(quizId);
     }
 
     // 3. Submit specific QUIZ with QUIZ-ID and QUIZ-ANSWERS for getting QUIZ-SCORE
