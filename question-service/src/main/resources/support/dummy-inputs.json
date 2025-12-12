@@ -1,0 +1,23 @@
+// Sample input for Endpoint : http://localhost:8080/quiz/submit/1 (POST)
+[
+  {
+    "questionId": 7,
+    "answerByUser": "private"
+  },
+  {
+    "questionId": 8,
+    "answerByUser": ".class"
+  },
+  {
+    "questionId": 6,
+    "answerByUser": "Encapsulation"
+  },
+  {
+    "questionId": 2,
+    "answerByUser": "Inheritance"
+  },
+  {
+    "questionId": 3,
+    "answerByUser": "main()"
+  }
+]
