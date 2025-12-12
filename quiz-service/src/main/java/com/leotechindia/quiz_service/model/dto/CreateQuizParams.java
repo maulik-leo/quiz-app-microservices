@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateQuizParams {
-    String cat;
-    int noQ;
-    String qTitle;
+    String category;
+    int noOfQuestions;
+    String quizTitle;
 }

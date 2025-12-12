@@ -20,7 +20,7 @@ public class QuizController {
     // 1. Create Quiz using CATEGORY, NUM-OF-QUESTION, QUIZ-TITLE
     @PostMapping("create")
     public ResponseEntity<String> createQuiz(@RequestBody CreateQuizParams quizParams) {
-        return quizService.createQuiz(quizParams.getCat(), quizParams.getNoQ(), quizParams.getQTitle());
+        return quizService.createQuiz(quizParams.getCategory(), quizParams.getNoOfQuestions(), quizParams.getQuizTitle());
     }
 
     // 2. Get all questions of specific QUIZ using QUIZ-ID
