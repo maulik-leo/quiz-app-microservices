@@ -5,6 +5,7 @@ import com.leotechindia.question_service.model.dto.QuestionOnly;
 import com.leotechindia.question_service.model.entity.Question;
 import com.leotechindia.question_service.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,11 +16,15 @@ import java.util.List;
 public class QuestionController {
 
     @Autowired
+    Environment env;
+
+    @Autowired
     private QuestionService questionService;
 
     // 1. Search All available questions
     @GetMapping("all")
     public ResponseEntity<List<Question>> getAllQuestions() {
+        System.out.println("Calling from :" + env.getProperty("local.server.port"));
         return questionService.getAllQuestions();
     }
 
